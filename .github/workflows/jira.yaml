@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+name: Jira Issue Creation Demo
+jobs:
+  jiraIssueCreation:
+    name: Jira Issue Creation Demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Jira Creation Demo
+        uses: bryannice/gitactions-jira-issue-creation@master
+        env:
+          JIRA_ACCOUNT_URL: https://rakshitmohan99.atlassian.net
+          JIRA_API_TOKEN: 0ZguBooo7awcPnUpCz2e80C2
+          JIRA_ISSUE_ATTACHMENT: log_file.log
+          JIRA_ISSUE_DESCRIPTION: Description of the issue 
+          JIRA_ISSUE_SUMMARY: Demo Summary 
+          JIRA_ISSUE_TYPE: Task
+          JIRA_PROJECT: TEST
+          JIRA_USERNAME: rakshitmohan99@gmail.com
