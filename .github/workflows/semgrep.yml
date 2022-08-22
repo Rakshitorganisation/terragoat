@@ -5,7 +5,7 @@ on:
       - main
       - master
 
-name: Jira Example
+name: Jira Examplee
 
 jobs:
   a-failing-job:
