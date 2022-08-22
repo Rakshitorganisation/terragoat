@@ -25,5 +25,5 @@ jobs:
       if: failure()
       with:
         project: TEST
-        issuetype: Build
+        issuetype: Task
         summary: Build failed for ${{ github.repository }}
