@@ -24,6 +24,6 @@ jobs:
       uses: atlassian/gajira-create@master
       if: failure()
       with:
-        project: GA
+        project: TEST
         issuetype: Build
         summary: Build failed for ${{ github.repository }}
