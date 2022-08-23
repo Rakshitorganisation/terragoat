@@ -1,23 +1,31 @@
-on:
-  push:
-    branches:
-      - main
-      - master
-name: Jira Issue Creation Demo
+name: Creating Jira
+on: [pull_request]
 jobs:
-  jiraIssueCreation:
-    name: Jira Issue Creation Demo
+  test-create-issue:
+    name: Create Issue
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Jira Creation Demo
-        uses: bryannice/gitactions-jira-issue-creation@master
-        env:
-          JIRA_ACCOUNT_URL: https://rakshitmohan99.atlassian.net
-          JIRA_API_TOKEN: XwIGGEasNQpgWIfucWnk95BD
-          JIRA_ISSUE_ATTACHMENT: log_file.log
-          JIRA_ISSUE_DESCRIPTION: Description of the issue 
-          JIRA_ISSUE_SUMMARY: Demo Summary 
-          JIRA_ISSUE_TYPE: Task
-          JIRA_PROJECT: TEST
-          JIRA_USERNAME: rakshitmohan99@gmail.com
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Login
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: https://rakshitmohan99.atlassian.net
+        JIRA_USER_EMAIL: rakshitmohan99@gmail.com
+        JIRA_API_TOKEN: OEcXF380PJplTaCFCDT79555
+
+    - name: Create
+      id: create
+      uses: atlassian/gajira-create@master
+      with:
+        project: TEST
+        issuetype: Task
+        summary: |
+          Terraform Security Scan ${{ github.repository }} || Pull Request No: ${{github.event.number}} 
+        description: |
+          Security Scan for terraform pull request https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+        fields: '{"assignee": {"name":"rakshitmohan99@gmail.com"}}'
+
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
