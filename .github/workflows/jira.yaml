@@ -14,7 +14,7 @@ jobs:
         uses: bryannice/gitactions-jira-issue-creation@master
         env:
           JIRA_ACCOUNT_URL: https://rakshitmohan99.atlassian.net
-          JIRA_API_TOKEN: 0ZguBooo7awcPnUpCz2e80C2
+          JIRA_API_TOKEN: XwIGGEasNQpgWIfucWnk95BD
           JIRA_ISSUE_ATTACHMENT: log_file.log
           JIRA_ISSUE_DESCRIPTION: Description of the issue 
           JIRA_ISSUE_SUMMARY: Demo Summary 
