@@ -1,31 +1,16 @@
-name: Creating Jira
-on: [pull_request]
+name: tfsec-pr-commenter
+on:
+  pull_request:
 jobs:
-  test-create-issue:
-    name: Create Issue
+  tfsec:
+    name: tfsec PR commenter
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-
-    - name: Login
-      uses: atlassian/gajira-login@master
-      env:
-        JIRA_BASE_URL: https://rakshitmohan99.atlassian.net
-        JIRA_USER_EMAIL: rakshitmohan99@gmail.com
-        JIRA_API_TOKEN: TmdV57FOgyToyfqU5wNc9A64
-
-    - name: Create
-      id: create
-      uses: atlassian/gajira-create@master
-      with:
-        project: TEST
-        issuetype: Task
-        summary: |
-          Terraform Security Scan ${{ github.repository }} || Pull Request No: ${{github.event.number}} 
-        description: |
-          Security Scan for terraform pull request https://github.com/${{ github.repository }}/pull/${{github.event.number}}
-        fields: '{"assignee": {"name":"rakshitmohan99@gmail.com"}}'
-
-    - name: Log created issue
-      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+      - name: Clone repo
+        uses: actions/checkout@master
+      - name: tfsec
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          tfsec_args: --soft-fail
+          github_token: ${{ secrets.TOKEN }}
